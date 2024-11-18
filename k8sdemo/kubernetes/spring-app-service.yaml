@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-app-service
+spec:
+  selector:
+    app: spring-app  # Matches the Pod's label
+  ports:
+    - protocol: TCP
+      port: 80         # Exposed port (clients use this)
+      targetPort: 8080 # Pod's containerPort
+  type: NodePort       # External access (optional)
