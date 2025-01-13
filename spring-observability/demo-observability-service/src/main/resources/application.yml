@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: name:demo-service
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
