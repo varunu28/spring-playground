@@ -23,7 +23,7 @@
  - As Prometheus & OTEL are in same docker network, we no longer need `extra_hosts` to interface with the localhost. Prometheus is now scraping data from OTEL.
 ![integrating otel](./images/integrating-otel.png)
 
-#### [Commit for integrating with Jaeger & Zipkin]()
+#### [Commit for integrating with Jaeger & Zipkin](https://github.com/varunu28/spring-playground/commit/34e0d7edefd35fdcce6baa7fd1336c2691e6c407)
  - `otel-collector` collects the data & sends it to Jaeger & Zipkin.
  - Zipkin & Jaeger are both distributed tracing systems. You can use either of them based upon your use case.
  - Previously Prometheus was scraping **metrics** from `otel-collector` whereas now `otel-collector` is sending **traces** to Jaeger & Zipkin.
