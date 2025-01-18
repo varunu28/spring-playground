@@ -30,3 +30,9 @@
  - `io.micrometer:micrometer-tracing-bridge-otel` - bridges the Micrometer Observation API to OpenTelemetry. 
  - `io.opentelemetry:opentelemetry-exporter-otlp` - reports traces to a collector that can accept OTLP.
 ![integrating jaeger & zipkin](./images/integrating-jaeger-and-zipkin.png)
+
+#### [Commit for integrating with Grafana Tempo]()
+ - Grafana Tempo is a distributed tracing system that is compatible with Jaeger & Zipkin.
+ - Tempo is a good alternative to Jaeger & Zipkin as it is more lightweight & provides the same functionality of distributed tracing backend.
+ - Grafana uses Tempo as a backend for distributed tracing.
+![integrating tempo](./images/integrating-tempo.png)
