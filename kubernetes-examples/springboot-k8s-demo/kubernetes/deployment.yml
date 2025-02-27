@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-k8s-demo
+spec:
+  selector:
+    matchLabels:
+      app: springboot-k8s-demo
+  replicas: 3
+  template:
+    metadata:
+        labels:
+          app: springboot-k8s-demo
+    spec:
+      containers:
+        - name: springboot-k8s-demo
+          image: springboot-k8s-demo:1.0
+          imagePullPolicy: IfNotPresent # Use IfNotPresent to avoid pulling the image if it already exists locally
+          ports:
+            - containerPort: 8080
