@@ -6,13 +6,13 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.4.3</version>
-        <relativePath/>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.varunu28</groupId>
-    <artifactId>springboot-k8s-demo</artifactId>
+    <artifactId>spring-mvc-serde</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>springboot-k8s-demo</name>
-    <description>springboot-k8s-demo</description>
+    <name>spring-mvc-serde</name>
+    <description>spring-mvc-serde</description>
     <url/>
     <licenses>
         <license/>
@@ -34,15 +34,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -52,7 +43,6 @@
     </dependencies>
 
     <build>
-        <finalName>springboot-k8s-demo</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
