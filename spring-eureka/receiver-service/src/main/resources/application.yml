@@ -3,4 +3,4 @@ spring:
     name: receiver-service
 
 server:
-  port: 8002
+  port: ${PORT:8082} # Default to 8082 if PORT environment variable is not set
