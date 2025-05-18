@@ -1,6 +1,8 @@
 package com.varunu28.springjwtdemo.controller;
 
 import com.varunu28.springjwtdemo.dto.LoginRequest;
+import com.varunu28.springjwtdemo.dto.SignupRequest;
+import com.varunu28.springjwtdemo.security.CustomUserDetailsService;
 import com.varunu28.springjwtdemo.util.JwtUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,10 +19,15 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
+    private final CustomUserDetailsService userDetailsService;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
+    public AuthController(
+        AuthenticationManager authenticationManager,
+        JwtUtil jwtUtil,
+        CustomUserDetailsService userDetailsService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        this.userDetailsService = userDetailsService;
     }
 
     @PostMapping("/login")
@@ -29,5 +36,18 @@ public class AuthController {
             new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password()));
         String token = jwtUtil.generateToken(authentication.getName());
         return ResponseEntity.ok(token);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody SignupRequest signupRequest) {
+        boolean isRegistered = userDetailsService.registerUser(signupRequest.username(), signupRequest.password());
+        if (isRegistered) {
+            Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(signupRequest.username(), signupRequest.password()));
+            String token = jwtUtil.generateToken(authentication.getName());
+            return ResponseEntity.ok(token);
+        } else {
+            return ResponseEntity.status(400).body("User already exists");
+        }
     }
 }

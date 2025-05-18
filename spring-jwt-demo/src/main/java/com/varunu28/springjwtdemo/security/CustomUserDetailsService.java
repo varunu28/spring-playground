@@ -26,4 +26,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
         return new User(username, password, Collections.emptyList());
     }
+
+    public boolean registerUser(String username, String password) {
+        if (users.containsKey(username)) {
+            return false;
+        }
+        users.put(username, password);
+        return true;
+    }
 }
