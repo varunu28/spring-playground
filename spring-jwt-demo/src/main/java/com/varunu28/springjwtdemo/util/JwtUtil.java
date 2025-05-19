@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtUtil {
 
-    private static final int EXPIRATION_TIME = 1000 * 60 * 60; // 1 hour
+    private static final int EXPIRATION_TIME = 1000 * 60 * 5; // 5 minutes
 
     @Value("${jwt.secret}")
     private String secret;
@@ -20,7 +20,7 @@ public class JwtUtil {
         return Jwts.builder()
             .setSubject(username)
             .setIssuedAt(new Date())
-            .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME)) // 1 hour
+            .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
             .signWith(getSigningKey())
             .compact();
     }
