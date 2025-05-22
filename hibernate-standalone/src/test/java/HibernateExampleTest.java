@@ -1,5 +1,9 @@
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -57,7 +61,7 @@ public class HibernateExampleTest {
     }
 
     @Test
-    public void hql_fetch_specific_user() {
+    void hql_fetch_specific_user() {
         var userName = "Alice";
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
@@ -70,5 +74,22 @@ public class HibernateExampleTest {
         assertEquals(userName, users.getFirst().getName());
 
         entityManager.getTransaction().commit();
+    }
+
+    @Test
+    void criteria_api() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<User> cq = cb.createQuery(User.class);
+        Root<User> root = cq.from(User.class); // SELECT u FROM User u
+        cq.select(root).where(cb.equal(root.get(User_.NAME), "Alice")); // WHERE u.name = :username
+
+        TypedQuery<User> typedQuery = entityManager.createQuery(cq);
+        List<User> users = typedQuery.getResultList();
+        assertEquals(1, users.size());
+        assertEquals("Alice", users.getFirst().getName());
+
+        entityManager.close();
     }
 }
