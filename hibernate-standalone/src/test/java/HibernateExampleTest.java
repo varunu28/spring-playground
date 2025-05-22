@@ -1,19 +1,19 @@
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import java.time.LocalDate;
 import java.util.List;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import java.util.UUID;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HibernateExampleTest {
-    private SessionFactory sessionFactory;
+    private EntityManagerFactory entityManagerFactory;
 
     @BeforeEach
     protected void setUp() {
@@ -21,7 +21,7 @@ public class HibernateExampleTest {
             .configure()
             .build();
         try {
-            sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+            entityManagerFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         } catch (Exception e) {
             StandardServiceRegistryBuilder.destroy(registry);
         }
@@ -29,51 +29,46 @@ public class HibernateExampleTest {
 
     @AfterEach
     protected void tearDown() {
-        if (sessionFactory != null) {
-            sessionFactory.close();
+        if (entityManagerFactory != null) {
+            entityManagerFactory.close();
         }
     }
 
     @Test
     void hql_save_user() {
-        User user = new User("Lisa", LocalDate.now());
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
+        User user = new User(UUID.randomUUID().toString(), LocalDate.now());
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
 
-            session.persist(user);
+        entityManager.persist(user);
 
-            session.getTransaction().commit();
-        }
+        entityManager.getTransaction().commit();
     }
 
     @Test
     void hql_fetch_users() {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
 
-            List<User> users = session.createQuery("select u from User u", User.class).list();
+        List<User> users = entityManager.createQuery("select u from User u", User.class).getResultList();
+        users.forEach(System.out::println);
 
-            users.forEach(System.out::println);
-
-            session.getTransaction().commit();
-        }
+        entityManager.getTransaction().commit();
     }
 
     @Test
-    @Disabled
     public void hql_fetch_specific_user() {
         var userName = "Alice";
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
 
-            List<User> users = session.createQuery("select u from User u where u.name=:username", User.class)
-                .setParameter("username", userName)
-                .list();
+        List<User> users = entityManager.createQuery("select u from User u where u.name=:username", User.class)
+            .setParameter("username", userName)
+            .getResultList();
 
-            assertEquals(1, users.size());
-            assertEquals(userName, users.getFirst().getName());
+        assertEquals(1, users.size());
+        assertEquals(userName, users.getFirst().getName());
 
-            session.getTransaction().commit();
-        }
+        entityManager.getTransaction().commit();
     }
 }
