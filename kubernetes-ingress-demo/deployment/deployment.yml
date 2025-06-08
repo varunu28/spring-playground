@@ -1,0 +1,33 @@
+# deployment/order-service-deployment.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingress-demo-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ingress-demo-service
+  template:
+    metadata:
+      labels:
+        app: ingress-demo-service
+    spec:
+      containers:
+        - name: ingress-demo-service
+          image: kubernetes-ingress-demo:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress-demo-service
+spec:
+  selector:
+    app: ingress-demo-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
