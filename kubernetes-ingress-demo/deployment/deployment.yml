@@ -1,4 +1,4 @@
-# deployment/order-service-deployment.yml
+# deployment/deployment.yml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
