@@ -1,0 +1,11 @@
+spring:
+#  profiles:
+#    active: test, qa # Ordering matters here as properties in `qa` will override those in `test`
+  application:
+    name: spring-profiles
+
+my:
+  greeting: Hello, World!
+  default: default-value
+  list:
+    values: One,Two,Three

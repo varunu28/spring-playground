@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: spring-profiles
+
+my:
+  greeting: Hello, Test!
+  default: test-value
+  list:
+    values: One,Two,Three,Four,Five
