@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: spring-jdbc-demo
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org:
+      springframework:
+        jdbc: DEBUG
