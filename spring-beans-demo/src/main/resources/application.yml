@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: spring-beans-demo
+
+config:
+  email:
+    enabled: true # Toggling this condition will disable injection for ConditionEmailServiceImpl
