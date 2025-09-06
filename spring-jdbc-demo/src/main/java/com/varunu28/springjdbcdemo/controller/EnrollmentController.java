@@ -46,9 +46,9 @@ public class EnrollmentController {
     }
 
     @GetMapping("/{courseId}")
-    public ResponseEntity<Iterable<StudentCourse>> getEnrolledStudentsInCourse(
+    public ResponseEntity<Iterable<Integer>> getEnrolledStudentsInCourse(
         @PathVariable("courseId") Integer courseId) {
         List<Integer> studentsEnrolledInCourse = studentCourseRepository.findStudentsEnrolledInCourse(courseId);
-        return ResponseEntity.ok();
+        return ResponseEntity.ok(studentsEnrolledInCourse);
     }
 }
