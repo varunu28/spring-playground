@@ -1,6 +1,8 @@
 package com.varunu28.springbeansdemo;
 
 import com.varunu28.springbeansdemo.service.EmailService;
+import com.varunu28.springbeansdemo.service.EvenNumberGenerator;
+import com.varunu28.springbeansdemo.service.OddNumberGenerator;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
@@ -16,6 +18,14 @@ public class SpringBeansDemoApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBeansDemoApplication.class, args);
+    }
+
+    @Bean
+    public CommandLineRunner injectingSameBeanForMultipleInterfaces(EvenNumberGenerator evenNumberGenerator,
+        OddNumberGenerator oddNumberGenerator) {
+        System.out.println("Generating even number: " + evenNumberGenerator.generateEvenNumber());
+        System.out.println("Generating odd number: " + oddNumberGenerator.generateOddNumber());
+        return args -> {};
     }
 
     // Expected dummy bean to be injected as we specify the parameter name to be equal to the bean name.
