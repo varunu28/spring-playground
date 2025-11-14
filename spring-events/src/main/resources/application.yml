@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: spring-events
+server:
+  port: 8080
