@@ -22,7 +22,7 @@ public class BankTransferController {
         service.transfer(request.fromAccount, request.toAccount, request.amount);
     }
 
-    record TransferRequest(@JsonProperty("from_account") String fromAccount,
+    public record TransferRequest(@JsonProperty("from_account") String fromAccount,
                            @JsonProperty("to_account") String toAccount,
                            @JsonProperty("amount") double amount) { }
 }
