@@ -17,7 +17,7 @@ Contract.make {
     response {
         status OK()
         body([
-                fraudCheckStatus  : "FRAUD",
+                status  : "FRAUD",
                 "rejection.reason": "Amount too high"
         ])
         headers {
