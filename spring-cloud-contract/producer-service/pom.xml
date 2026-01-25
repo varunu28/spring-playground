@@ -46,6 +46,12 @@
             <artifactId>spring-cloud-starter-contract-verifier</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.varunu28</groupId>
+            <artifactId>contracts</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -68,6 +74,14 @@
                 <configuration>
                     <baseClassForTests>com.varunu28.producerservice.BaseTestClass</baseClassForTests>
                     <testFramework>JUNIT5</testFramework>
+                    <contractsMode>REMOTE</contractsMode>
+                    <contractsRepositoryUrl>file://${user.home}/.m2/repository</contractsRepositoryUrl>
+                    <contractDependency>
+                        <groupId>com.varunu28</groupId>
+                        <artifactId>contracts</artifactId>
+                        <version>0.0.1-SNAPSHOT</version>
+                    </contractDependency>
+                    <contractsPath>contracts/producer-service</contractsPath>
                 </configuration>
             </plugin>
             <plugin>
