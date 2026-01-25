@@ -1,0 +1,4 @@
+stubrunner:
+  ids: com.varunu28:producer-service:0.0.1-SNAPSHOT:stubs
+  stubs-mode: remote
+  repository-root: file://${user.home}/.m2/repository
