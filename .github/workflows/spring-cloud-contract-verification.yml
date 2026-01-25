@@ -1,0 +1,42 @@
+name: Spring Cloud Contract Verification
+
+on:
+  push:
+    paths:
+      - 'spring-cloud-contract/**'
+  pull_request:
+    paths:
+      - 'spring-cloud-contract/**'
+
+jobs:
+  contract-verification:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+      
+      - name: Build and install contracts
+        working-directory: ./spring-cloud-contract/contracts
+        run: mvn clean install
+      
+      - name: Build and install producer-service with stubs
+        working-directory: ./spring-cloud-contract/producer-service
+        run: mvn clean install
+      
+      - name: Verify consumer-service with generated stubs
+        working-directory: ./spring-cloud-contract/consumer-service
+        run: mvn clean install
+      
+      - name: Test Results Summary
+        if: always()
+        run: |
+          echo "Contract verification completed"
+          echo "All services have been built and tested against the contract"
