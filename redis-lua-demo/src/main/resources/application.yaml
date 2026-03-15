@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: redis-lua-demo
+
+flash:
+  sale:
+    id: "flash-sale-in-march-1"
