@@ -4,4 +4,4 @@ spring:
 
 config:
   email:
-    enabled: true # Toggling this condition will disable injection for ConditionEmailServiceImpl
+    enabled: false # Toggling this condition will disable injection for ConditionEmailServiceImpl

@@ -1,17 +1,16 @@
 package com.varunu28.springbeansdemo;
 
+import com.varunu28.springbeansdemo.chained.NotificationService;
 import com.varunu28.springbeansdemo.service.EmailService;
 import com.varunu28.springbeansdemo.service.EvenNumberGenerator;
 import com.varunu28.springbeansdemo.service.OddNumberGenerator;
+import java.util.List;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Condition;
-import org.springframework.context.annotation.ConditionContext;
-import org.springframework.core.type.AnnotatedTypeMetadata;
 
 @SpringBootApplication
 public class SpringBeansDemoApplication {
@@ -55,6 +54,14 @@ public class SpringBeansDemoApplication {
         if (ifAvailable != null) {
             ifAvailable.sendEmail("content", "toEmail");
         }
+        return args -> {};
+    }
+
+    // Chained bean injections injects all the beans based upon the type. Spring context pulls all the beans for the
+    // type that were created during startup
+    @Bean
+    public CommandLineRunner chainedNotificationsInjection(List<NotificationService> notificationServices) {
+        notificationServices.forEach(NotificationService::sendNotification);
         return args -> {};
     }
 }
