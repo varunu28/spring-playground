@@ -1,5 +1,6 @@
 package com.varunu28.springbeansdemo;
 
+import com.varunu28.springbeansdemo.beanlifecycle.PrinterService;
 import com.varunu28.springbeansdemo.chained.NotificationService;
 import com.varunu28.springbeansdemo.service.EmailService;
 import com.varunu28.springbeansdemo.service.EvenNumberGenerator;
@@ -62,6 +63,13 @@ public class SpringBeansDemoApplication {
     @Bean
     public CommandLineRunner chainedNotificationsInjection(List<NotificationService> notificationServices) {
         notificationServices.forEach(NotificationService::sendNotification);
+        return args -> {};
+    }
+
+    // The @PostConstruct method on prototype bean is called only when it is used.
+    @Bean
+    public CommandLineRunner beanLifecycle(@Qualifier("consolePrintService") PrinterService consolePrintService) {
+        consolePrintService.invokePrint("Hello World!");
         return args -> {};
     }
 }
