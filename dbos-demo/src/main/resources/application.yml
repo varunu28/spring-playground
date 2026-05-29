@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: dbos-demo
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8080
+
+api:
+  kayne-quotes:
+    url: "https://api.kanye.rest"
+
+logging:
+  level:
+    dev:
+      dbos: DEBUG
+    io:
+      varunu28:
+        dbosdemo: DEBUG
+
