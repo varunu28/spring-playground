@@ -1,0 +1,15 @@
+apiVersion: skaffold/v4beta7
+kind: Config
+build:
+  artifacts:
+    - image: echo-service
+      jib: {} 
+manifests:
+  rawYaml:
+    - k8s/deploy/*.yml 
+deploy:
+  kubectl:
+    hooks:
+      before:
+        - host:
+            command: ["kubectl", "apply", "-f", "k8s/setup/namespace.yml"]

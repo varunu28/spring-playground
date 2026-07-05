@@ -4,10 +4,7 @@
 A simple Java service deployed on minikube with a `ClusterIP`
 
 ## How to deploy?
- - Build the image by running `./gradlew bootBuildImage`
- - Load image on minikube `minikube image load varunu2892/echo-service:latest`
- - Create the namespace `kubectl apply -f namespace.yml`
- - Create deployment `kubectl apply -f service.yml --namespace kubeproxy-demo`
+Run `skaffold run`
 
 ## Routing flow through kube-proxy
  - Get the `ClusterIP` of the service by running `kubectl get service --namespace kubeproxy-demo`

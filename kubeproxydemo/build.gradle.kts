@@ -2,6 +2,7 @@ plugins {
 	java
 	id("org.springframework.boot") version "4.1.0"
 	id("io.spring.dependency-management") version "1.1.7"
+    id("com.google.cloud.tools.jib") version "3.5.2"
 }
 
 group = "com.varunu28"
@@ -27,7 +28,3 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
-tasks.named<org.springframework.boot.gradle.tasks.bundling.BootBuildImage>("bootBuildImage") {
-	imageName.set("varunu2892/echo-service")
-	environment.set(mapOf("BP_JVM_VERSION" to "25"))
-}
