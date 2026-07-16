@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: kotlin-spring-nano-service
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
